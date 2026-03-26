@@ -67,18 +67,18 @@
   .img-group.cols-4 { grid-template-columns: repeat(4, 1fr); }
 
   /* 圖片容器：固定寬高比 */
-  /* 修改：將預設背景改為透明，讓 Icon 也能和網頁底色融合 */
-  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: transparent; }
+  /* 修改：加入 !important 強制覆蓋，確保所有縮圖背景皆為透明，與網頁底色融合 */
+  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: transparent !important; }
   .img-wrap.ratio-portrait { aspect-ratio: 9/16; }  /* 立繪（直向）*/
   .img-wrap.ratio-square   { aspect-ratio: 1/1; }   /* icon、腳色設計 */
   .img-wrap.ratio-wide     { aspect-ratio: 16/9; }  /* 工作流截圖 */
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
   
-  /* 修改：回歸上一版，取消內邊距與混和模式，保持透明背景 */
+  /* 確保 ratio-auto 也是透明的 */
   .img-wrap.ratio-auto { 
     aspect-ratio: 4/5; 
-    background: transparent; 
+    background: transparent !important; 
   }
   
   /* 新增：將 ratio-square (Icon) 也加入，讓圖片完整顯示不裁切，並置中 */
