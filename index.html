@@ -114,11 +114,14 @@
   .hr-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(201,192,220,0.4), transparent); }
 
   /* Lightbox */
-  .lightbox { display: none; position: fixed; inset: 0; background: rgba(45,43,53,0.93); z-index: 999; align-items: center; justify-content: center; }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(45,43,53,0.93); z-index: 999; align-items: center; justify-content: center; overflow: hidden; }
   .lightbox.open { display: flex; }
-  .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; }
-  .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: rgba(255,255,255,0.7); font-size: 2rem; cursor: pointer; line-height: 1; }
+  .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; cursor: grab; user-select: none; transition: none; }
+  .lightbox img.dragging { cursor: grabbing; }
+  .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: rgba(255,255,255,0.7); font-size: 2rem; cursor: pointer; line-height: 1; z-index: 10; }
   .lightbox-close:hover { color: #fff; }
+  .lightbox-hint { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; pointer-events: none; }
+  .lightbox-zoom { position: absolute; bottom: 1.5rem; right: 2rem; font-size: 0.72rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; pointer-events: none; }
 
   footer { border-top: 1px solid rgba(201,192,220,0.25); padding: 3rem 2rem; text-align: center; font-size: 0.75rem; color: var(--light); letter-spacing: 0.1em; }
 
@@ -485,6 +488,8 @@
 <div class="lightbox" id="lightbox">
   <span class="lightbox-close" id="lbClose">✕</span>
   <img id="lbImg" src="" alt="">
+  <span class="lightbox-hint">滾輪縮放 · 拖曳移動 · 雙擊重置</span>
+  <span class="lightbox-zoom" id="lbZoom">100%</span>
 </div>
 
 <script>
@@ -494,13 +499,105 @@
     }, { threshold: 0.08 }).observe(el);
   });
 
-  const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg');
+  // Lightbox 縮放與拖曳
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbZoom = document.getElementById('lbZoom');
+
+  let scale = 1, tx = 0, ty = 0;
+  let dragging = false, startX = 0, startY = 0, baseTx = 0, baseTy = 0;
+
+  function applyTransform() {
+    lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    lbZoom.textContent = Math.round(scale * 100) + '%';
+  }
+
+  function resetTransform() {
+    scale = 1; tx = 0; ty = 0;
+    lbImg.style.transition = 'transform 0.25s ease';
+    applyTransform();
+    setTimeout(() => lbImg.style.transition = 'none', 260);
+  }
+
+  function openLightbox(src) {
+    lbImg.src = src;
+    scale = 1; tx = 0; ty = 0;
+    lbImg.style.transform = '';
+    lb.classList.add('open');
+  }
+
+  // 點擊圖片開啟
   document.querySelectorAll('.img-wrap img, .ctrl-img-wrap img').forEach(img => {
-    img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); });
+    img.addEventListener('click', () => openLightbox(img.src));
   });
+
+  // 關閉
   document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
   lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+
+  // 滾輪縮放
+  lb.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    scale = Math.min(Math.max(scale * delta, 0.5), 8);
+    applyTransform();
+  }, { passive: false });
+
+  // 拖曳移動
+  lbImg.addEventListener('mousedown', e => {
+    if (scale <= 1) return;
+    dragging = true;
+    startX = e.clientX; startY = e.clientY;
+    baseTx = tx; baseTy = ty;
+    lbImg.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    tx = baseTx + (e.clientX - startX);
+    ty = baseTy + (e.clientY - startY);
+    applyTransform();
+  });
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    lbImg.classList.remove('dragging');
+  });
+
+  // 雙擊重置
+  lbImg.addEventListener('dblclick', resetTransform);
+
+  // 觸控支援（手機）
+  let lastDist = 0;
+  lb.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      lastDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    } else if (e.touches.length === 1) {
+      dragging = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      baseTx = tx; baseTy = ty;
+    }
+  }, { passive: true });
+  lb.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      scale = Math.min(Math.max(scale * (dist / lastDist), 0.5), 8);
+      lastDist = dist;
+      applyTransform();
+    } else if (e.touches.length === 1 && dragging) {
+      tx = baseTx + (e.touches[0].clientX - startX);
+      ty = baseTy + (e.touches[0].clientY - startY);
+      applyTransform();
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', () => { dragging = false; });
 </script>
 </body>
 </html>
