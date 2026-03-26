@@ -23,7 +23,7 @@
     padding: 0 2.5rem; height: 56px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  /* 增加 text-decoration: none; 去除連結底線 */
+  /* 這裡加上了 text-decoration: none; 讓連結不會有底線 */
   .nav-logo { font-family: 'Noto Serif TC', serif; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--mid); text-decoration: none; }
   .nav-links { display: flex; gap: 1.6rem; list-style: none; }
   .nav-links a { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--light); text-decoration: none; transition: color 0.25s; }
@@ -32,7 +32,7 @@
   /* ── Hero Cover Banner（類 Notion 封面效果）── */
   .hero-cover {
     width: 100%; height: 280px;
-    background: url('images/hero_cover.png') center 0% / cover no-repeat;
+    background: url('images/hero_cover.png') center 30% / cover no-repeat;
     position: relative;
     margin-top: 56px; /* nav 高度 */
   }
@@ -180,7 +180,7 @@
 <body>
 
 <nav>
-  <!-- 將 span 改為 a 連結，設定 href="#" 即可回到最頂端 -->
+  <!-- 這裡將原本的 span 改成了 a 標籤，並加上 href="#" 達到回頂部的功能 -->
   <a href="#" class="nav-logo">2D Art × AI</a>
   <ul class="nav-links">
     <li><a href="#part1">手繪作品</a></li>
@@ -194,7 +194,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <p class="hero-tag">Portfolio · 作品集</p>
+  <p class="hero-tag">2D Art × AI · 作品集</p>
   <h1 class="hero-title">2D 美術與 <em>AI</em><br>整合應用作品集</h1>
   <p class="hero-sub">手繪創作 × AI 輔助生成 × 後製精修<br>CSP · ComfyUI · Gemini Nanobanana · Photoshop</p>
   <div class="hero-divider"></div>
@@ -373,16 +373,16 @@
     <div class="sub-title reveal"><span class="sub-num">02</span> 腳色搭配 UI 介面</div>
     <div class="img-group cols-3 reveal">
       <div>
-        <div class="img-wrap ratio-ui"><img src="images/img17.png" alt="天空城女刺客UI" loading="lazy"></div>
-        <p class="img-label">天空城女刺客</p>
+        <div class="img-wrap ratio-ui"><img src="images/img17.png" alt="UI A" loading="lazy"></div>
+        <p class="img-label">UI A</p>
       </div>
       <div>
-        <div class="img-wrap ratio-ui"><img src="images/img18.png" alt="天空城男劍士UI" loading="lazy"></div>
-        <p class="img-label">天空城男劍士</p>
+        <div class="img-wrap ratio-ui"><img src="images/img18.png" alt="UI B" loading="lazy"></div>
+        <p class="img-label">UI B</p>
       </div>
       <div>
-        <div class="img-wrap ratio-ui"><img src="images/img19.png" alt="天空城城主UI" loading="lazy"></div>
-        <p class="img-label">天空城城主</p>
+        <div class="img-wrap ratio-ui"><img src="images/img19.png" alt="UI C" loading="lazy"></div>
+        <p class="img-label">UI C</p>
       </div>
     </div>
   </div>
@@ -460,7 +460,7 @@
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p1_image.png" alt="Image" loading="lazy"></div><p class="img-label">Image 預覽</p></div>
     </div>
     <div class="workflow-block reveal">
-      <div class="workflow-title">六大區塊說明</div>
+      <div class="workflow-title">工作流說明</div>
       <div class="workflow-note"><strong>Model：</strong>載入模型、LoRA 與 VAE，clip skip 也可在此調整</div>
       <div class="workflow-note"><strong>Prompt：</strong>合併提詞可將不常變動的提詞分離，按部位撰寫</div>
       <div class="workflow-note"><strong>ControlNet：</strong>常用 canny、depth、openpose；準確率 canny &gt; depth &gt; openpose</div>
@@ -484,7 +484,7 @@
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p2_crop.png" alt="Crop and Stitch" loading="lazy"></div><p class="img-label">Crop &amp; Stitch</p></div>
     </div>
     <div class="workflow-block reveal">
-      <div class="workflow-title">區塊說明</div>
+      <div class="workflow-title">工作流說明</div>
       <div class="workflow-note"><strong>Gemini：</strong>整合 **Gemini 大型語言模型（LLM）** 進行遮罩處理後圖像的解析，利用 **Gemini-2.5-flash 節點** 實現自動化的 Prompt 工程</div>
       <div class="workflow-note"><strong>ControlNet：</strong>局部重繪使用準確度最高的 canny</div>
       <div class="workflow-note"><strong>KSampler：</strong>降躁值常用 0.5、0.3、0.1、0.01；cfg 可調整色彩飽和度</div>
@@ -505,7 +505,7 @@
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p3_ksampler.png" alt="KSampler" loading="lazy"></div><p class="img-label">KSampler</p></div>
     </div>
     <div class="workflow-block reveal">
-      <div class="workflow-title">四大區域說明</div>
+      <div class="workflow-title">工作流說明</div>
       <div class="workflow-note"><strong>Prompt：</strong>功能與基本生圖相同，合併提詞分離固定與變動的部分</div>
       <div class="workflow-note"><strong>LoRA × Weight：</strong>儲存 8 個訓練版本，最終採用 5～7 階段；測試各階段在 weight 0.5～1 的表現</div>
       <div class="workflow-note"><strong>LoRA × Seed：</strong>測試不同訓練版本間的差異</div>
@@ -520,14 +520,14 @@
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p4_overview.png" alt="LoRA自動打標工作流總覽" loading="lazy"></div><p class="img-label">工作流總覽</p></div>
     </div>
     <div class="workflow-block reveal">
-      <div class="workflow-title">自製 Gemini 節點</div>
+      <div class="workflow-title">自製 Gemini 節點說明</div>
       <div class="workflow-note">自動讀取指定資料夾內圖片，分析打標後按順序和檔名整齊排列至另一個資料夾。</div>
       <div class="workflow-note">使用 Gemini API Key，設計可同時載入多把金鑰，被限流時自動切換至下一把。</div>
     </div>
   </div>
 </section>
 
-<footer><p>2D 美術與 AI 整合應用作品集 &nbsp;·&nbsp; Portfolio</p></footer>
+<footer><p>2D 美術與 AI 整合應用作品集 &nbsp;·&nbsp; 2D Art × AI</p></footer>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
