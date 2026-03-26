@@ -72,6 +72,18 @@
   .img-wrap.ratio-wide     { aspect-ratio: 16/9; }  /* 工作流截圖 */
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
+  
+  /* 新增：取消固定比例，用於完整顯示腳色設計與立繪，避免裁切 */
+  .img-wrap.ratio-auto { 
+    aspect-ratio: auto; 
+    background: transparent; 
+  }
+  .img-wrap.ratio-auto img {
+    position: relative; /* 取消絕對定位讓圖片撐開高度 */
+    height: auto;
+    object-fit: contain;
+  }
+
   .img-wrap img {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; object-position: top;
@@ -184,44 +196,48 @@
     </div>
   </div>
 
-  <!-- 2. 腳色設計：各子標題一區，圖片相同寬高比 -->
+  <!-- 2. 腳色設計：改為 2x2 陣列且使用 auto-height 保留完整圖片 -->
   <div class="sub-section reveal">
     <div class="sub-title"><span class="sub-num">02</span> 腳色設計</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+    <div class="img-group cols-2" style="row-gap: 2rem;">
       <div>
-        <p class="img-label" style="margin-bottom:0.5rem;">腳色設計</p>
-        <div class="img-group cols-2">
-          <div><div class="img-wrap ratio-portrait"><img src="images/img03.png" alt="腳色設計1" loading="lazy"></div></div>
-          <div><div class="img-wrap ratio-portrait"><img src="images/img04.png" alt="腳色設計2" loading="lazy"></div></div>
-        </div>
+        <div class="img-wrap ratio-auto"><img src="images/img03.png" alt="腳色設計1" loading="lazy"></div>
+        <p class="img-label">腳色設計 (A)</p>
       </div>
       <div>
-        <p class="img-label" style="margin-bottom:0.5rem;">服裝設計</p>
-        <div class="img-group cols-2">
-          <div><div class="img-wrap ratio-portrait"><img src="images/img05.png" alt="服裝設計1" loading="lazy"></div></div>
-          <div><div class="img-wrap ratio-portrait"><img src="images/img06.png" alt="服裝設計2" loading="lazy"></div></div>
-        </div>
+        <div class="img-wrap ratio-auto"><img src="images/img04.png" alt="腳色設計2" loading="lazy"></div>
+        <p class="img-label">腳色設計 (B)</p>
+      </div>
+      <div>
+        <div class="img-wrap ratio-auto"><img src="images/img05.png" alt="服裝設計1" loading="lazy"></div>
+        <p class="img-label">服裝設計 (A)</p>
+      </div>
+      <div>
+        <div class="img-wrap ratio-auto"><img src="images/img06.png" alt="服裝設計2" loading="lazy"></div>
+        <p class="img-label">服裝設計 (B)</p>
       </div>
     </div>
   </div>
 
-  <!-- 3. 角色立繪：各子標題一區，並排等寬 -->
+  <!-- 3. 角色立繪：比照腳色設計改為 2x2 陣列，並使用 auto-height 保留完整圖片 -->
   <div class="sub-section reveal">
     <div class="sub-title"><span class="sub-num">03</span> 角色立繪</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+    <div class="img-group cols-2" style="row-gap: 2rem;">
       <div>
-        <p class="img-label" style="margin-bottom:0.5rem;">專案立繪</p>
-        <div class="img-group cols-2">
-          <div><div class="img-wrap ratio-portrait"><img src="images/img07.png" alt="專案立繪1" loading="lazy"></div></div>
-          <div><div class="img-wrap ratio-portrait"><img src="images/img08.png" alt="專案立繪2" loading="lazy"></div></div>
-        </div>
+        <div class="img-wrap ratio-auto"><img src="images/img07.png" alt="專案立繪1" loading="lazy"></div>
+        <p class="img-label">專案立繪 (A)</p>
       </div>
       <div>
-        <p class="img-label" style="margin-bottom:0.5rem;">個人作品</p>
-        <div class="img-group cols-2">
-          <div><div class="img-wrap ratio-portrait"><img src="images/img09.png" alt="個人作品1" loading="lazy"></div></div>
-          <div><div class="img-wrap ratio-portrait"><img src="images/img10.png" alt="個人作品2" loading="lazy"></div></div>
-        </div>
+        <div class="img-wrap ratio-auto"><img src="images/img08.png" alt="專案立繪2" loading="lazy"></div>
+        <p class="img-label">專案立繪 (B)</p>
+      </div>
+      <div>
+        <div class="img-wrap ratio-auto"><img src="images/img09.png" alt="個人作品1" loading="lazy"></div>
+        <p class="img-label">個人作品 (A)</p>
+      </div>
+      <div>
+        <div class="img-wrap ratio-auto"><img src="images/img10.png" alt="個人作品2" loading="lazy"></div>
+        <p class="img-label">個人作品 (B)</p>
       </div>
     </div>
   </div>
@@ -563,9 +579,6 @@
     dragging = false;
     lbImg.classList.remove('dragging');
   });
-
-  // 雙擊重置
-  lbImg.addEventListener('dblclick', resetTransform);
 
   // 觸控支援（手機）
   let lastDist = 0;
