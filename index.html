@@ -85,7 +85,8 @@
     width: 100%;
     height: 100%;
     object-fit: contain; /* 關鍵：保證圖片完整顯示、不裁切 */
-    padding: 0; /* 移除 padding 讓圖片最大化 */
+    padding: 1.2rem; /* 加上內邊距，讓角色周圍有呼吸空間，更像 Icon 的卡片感 */
+    mix-blend-mode: darken; /* 神奇語法：過濾掉圖片本身的淺色底色，讓容器的背景色透出來 */
   }
 
   .img-wrap img {
