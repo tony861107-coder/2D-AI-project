@@ -151,7 +151,8 @@
   .hr-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(201,192,220,0.4), transparent); }
 
   /* Lightbox */
-  .lightbox { display: none; position: fixed; inset: 0; background: rgba(45,43,53,0.93); z-index: 999; align-items: center; justify-content: center; overflow: hidden; }
+  /* 修改：稍微調低不透明度(0.93 -> 0.75)，並加上 backdrop-filter: blur(12px) 產生背景模糊效果 */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(45,43,53,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 999; align-items: center; justify-content: center; overflow: hidden; }
   .lightbox.open { display: flex; }
   .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; cursor: grab; user-select: none; transition: none; }
   .lightbox img.dragging { cursor: grabbing; }
