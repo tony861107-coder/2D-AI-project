@@ -28,15 +28,12 @@
   .nav-links a { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--light); text-decoration: none; transition: color 0.25s; }
   .nav-links a:hover { color: var(--accent); }
 
-  /* ── Hero Cover Banner（類 Notion 封面效果）── */
-  .hero-cover {
-    width: 100%; height: 280px;
-    /* 修改：將原來的 center 20% 改為 center 0%，讓圖片顯示的範圍往上移 */
-    background: url('images/hero_cover.png') center 0% / cover no-repeat;
-    position: relative;
-    margin-top: 56px; /* nav 高度 */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
   }
-  .hero-cover::after {
+  .hero::before {
     content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(201,192,220,0.22) 0%, transparent 70%),
                 radial-gradient(ellipse 50% 40% at 25% 70%, rgba(212,168,176,0.18) 0%, transparent 65%);
