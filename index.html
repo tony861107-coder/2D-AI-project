@@ -67,26 +67,30 @@
   .img-group.cols-4 { grid-template-columns: repeat(4, 1fr); }
 
   /* 圖片容器：固定寬高比 */
-  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: var(--blush); }
+  /* 修改：將預設背景改為透明，讓 Icon 也能和網頁底色融合 */
+  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: transparent; }
   .img-wrap.ratio-portrait { aspect-ratio: 9/16; }  /* 立繪（直向）*/
   .img-wrap.ratio-square   { aspect-ratio: 1/1; }   /* icon、腳色設計 */
   .img-wrap.ratio-wide     { aspect-ratio: 16/9; }  /* 工作流截圖 */
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
   
-  /* 修改：設定統一的縮圖外框比例，並讓圖片完整顯示於其中（不裁切） */
+  /* 修改：回歸上一版，取消內邊距與混和模式，保持透明背景 */
   .img-wrap.ratio-auto { 
-    aspect-ratio: 4/5; /* 統一外框的長寬比，確保所有縮圖邊緣切齊 */
-    background: var(--blush); /* 改為與 Icon 區塊相同的背景色 */
+    aspect-ratio: 4/5; 
+    background: transparent; 
   }
-  .img-wrap.ratio-auto img {
+  
+  /* 新增：將 ratio-square (Icon) 也加入，讓圖片完整顯示不裁切，並置中 */
+  .img-wrap.ratio-auto img,
+  .img-wrap.ratio-square img {
     position: absolute; 
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 關鍵：保證圖片完整顯示、不裁切 */
-    padding: 1.2rem; /* 加上內邊距，讓角色周圍有呼吸空間，更像 Icon 的卡片感 */
-    mix-blend-mode: darken; /* 神奇語法：過濾掉圖片本身的淺色底色，讓容器的背景色透出來 */
+    object-fit: contain; /* 關鍵：保證圖片完整顯示 */
+    object-position: center; /* 讓圖片在框內垂直/水平置中 */
+    padding: 0; 
   }
 
   .img-wrap img {
