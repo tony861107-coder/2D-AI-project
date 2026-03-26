@@ -31,7 +31,7 @@
   /* ── Hero Cover Banner（類 Notion 封面效果）── */
   .hero-cover {
     width: 100%; height: 280px;
-    background: url('images/hero_cover.png') center 0% / cover no-repeat;
+    background: url('images/hero_cover.png') center 30% / cover no-repeat;
     position: relative;
     margin-top: 56px; /* nav 高度 */
   }
@@ -59,9 +59,7 @@
   .section-title { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.06em; }
   .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--blush), transparent); margin-left: 0.5rem; }
   .section-note { background: var(--blush); border-left: 2px solid var(--lavender); padding: 1rem 1.4rem; font-size: 0.84rem; color: var(--mid); line-height: 1.7; border-radius: 0 6px 6px 0; margin-bottom: 2.4rem; }
-  
-  /* 修改：移除了 background 設定，讓所有說明文字的背景都統一為 var(--blush) (圖中的奶茶色) */
-  .section-note.ai { border-left-color: var(--dusty-rose); }
+  .section-note.ai { background: rgba(201,192,220,0.1); border-left-color: var(--dusty-rose); }
 
   .sub-section { margin-bottom: 3.5rem; }
   .sub-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--charcoal); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
@@ -69,45 +67,24 @@
 
   /* ── 圖片群組：同一群用 grid，每格 aspect-ratio 統一 ── */
   .img-group { display: grid; gap: 1rem; }
-  .img-group > div { display: flex; flex-direction: column; }
   .img-group.cols-2 { grid-template-columns: repeat(2, 1fr); }
   .img-group.cols-3 { grid-template-columns: repeat(3, 1fr); }
   .img-group.cols-4 { grid-template-columns: repeat(4, 1fr); }
 
   /* 圖片容器：固定寬高比 */
-  /* 修改：加入 !important 強制覆蓋，確保所有縮圖背景皆為透明，與網頁底色融合 */
-  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: transparent !important; }
+  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: var(--blush); }
   .img-wrap.ratio-portrait { aspect-ratio: 9/16; }  /* 立繪（直向）*/
   .img-wrap.ratio-square   { aspect-ratio: 1/1; }   /* icon、腳色設計 */
   .img-wrap.ratio-wide     { aspect-ratio: 16/9; }  /* 工作流截圖 */
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
-  
-  /* 確保 ratio-auto 也是透明的 */
-  .img-wrap.ratio-auto { 
-    aspect-ratio: 4/5; 
-    background: transparent !important; 
-  }
-  
-  /* 新增：將 ratio-square (Icon) 也加入，讓圖片完整顯示不裁切，並置中 */
-  .img-wrap.ratio-auto img,
-  .img-wrap.ratio-square img {
-    position: absolute; 
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* 關鍵：保證圖片完整顯示 */
-    object-position: center; /* 讓圖片在框內垂直/水平置中 */
-    padding: 0; 
-  }
-
   .img-wrap img {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; object-position: top;
     transition: transform 0.35s; cursor: zoom-in;
   }
   .img-wrap img:hover { transform: scale(1.03); }
-  .img-label { text-align: center; font-size: 0.72rem; color: var(--light); margin-top: auto; padding-top: 0.6rem; letter-spacing: 0.06em; }
+  .img-label { text-align: center; font-size: 0.72rem; color: var(--light); margin-top: 0.4rem; letter-spacing: 0.06em; }
 
   /* BA 對比區塊 */
   .ba-block { background: #fff; border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; transition: box-shadow 0.3s; }
@@ -116,16 +93,14 @@
   .ba-label { font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent2); }
   .ba-name { font-family: 'Noto Serif TC', serif; font-size: 1rem; }
   .ba-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
-  .ba-images > div { display: flex; flex-direction: column; }
-  .ba-img-label { text-align: center; font-size: 0.68rem; color: var(--light); margin-top: auto; padding-top: 0.4rem; }
+  .ba-img-label { text-align: center; font-size: 0.68rem; color: var(--light); margin-top: 0.3rem; }
 
   /* controlnet 參考圖（小，放在detail-box內）*/
   .ctrl-row { display: flex; gap: 0.8rem; align-items: flex-start; margin-top: 0.6rem; }
   .ctrl-img-wrap { width: 120px; flex-shrink: 0; border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; background: var(--blush); }
   .ctrl-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
 
-  /* 條件1 & 2：確保 detail-box (腳色立繪與LoRA下方文字說明) 的背景為淡奶茶色 */
-  .detail-box { background: var(--blush); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 0.8rem; }
+  .detail-box { background: rgba(201,192,220,0.08); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 0.8rem; }
   .detail-row { display: flex; gap: 0.6rem; font-size: 0.78rem; color: var(--mid); padding: 0.3rem 0; border-bottom: 1px solid rgba(201,192,220,0.2); flex-wrap: wrap; }
   .detail-row:last-child { border-bottom: none; }
   .detail-key { color: var(--accent); font-weight: 500; min-width: 90px; flex-shrink: 0; }
@@ -136,11 +111,9 @@
   .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--lavender), var(--dusty-rose)); flex-shrink: 0; }
 
   /* Part3 workflow */
-  /* 條件3：將 workflow-block (整個區塊說明) 背景改為淡奶茶色 */
-  .workflow-block { background: var(--blush); border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; }
+  .workflow-block { background: #fff; border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; }
   .workflow-title { font-family: 'Noto Serif TC', serif; font-size: 0.95rem; color: var(--charcoal); margin-bottom: 1rem; }
-  /* 優化：外層變為奶茶色後，將內層 note 改為半透明白色以凸顯層次感 */
-  .workflow-note { background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.78rem; color: var(--mid); line-height: 1.7; margin-top: 0.5rem; }
+  .workflow-note { background: rgba(201,192,220,0.1); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.78rem; color: var(--mid); line-height: 1.7; margin-top: 0.5rem; }
   .workflow-note strong { color: var(--accent); font-weight: 500; }
 
   .hr { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
@@ -183,6 +156,9 @@
     <li><a href="#part3">ComfyUI 流程</a></li>
   </ul>
 </nav>
+
+<!-- Cover Banner（類 Notion 封面效果）-->
+<div class="hero-cover"></div>
 
 <!-- HERO -->
 <section class="hero">
