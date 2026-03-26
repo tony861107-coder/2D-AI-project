@@ -31,7 +31,7 @@
   /* ── Hero Cover Banner（類 Notion 封面效果）── */
   .hero-cover {
     width: 100%; height: 280px;
-    background: url('images/hero_cover.png') center 30% / cover no-repeat;
+    background: url('images/hero_cover.png') center 0% / cover no-repeat;
     position: relative;
     margin-top: 56px; /* nav 高度 */
   }
@@ -55,17 +55,20 @@
 
   .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
   .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
-  .part-label { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
-  .section-title { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.06em; }
+  
+  /* ------------------- 以下字體皆放大 1.5 倍 ------------------- */
+  
+  .part-label { font-size: 1.02rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  .section-title { font-family: 'Noto Serif TC', serif; font-size: 2.4rem; font-weight: 400; letter-spacing: 0.06em; }
   .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--blush), transparent); margin-left: 0.5rem; }
-  .section-note { background: var(--blush); border-left: 2px solid var(--lavender); padding: 1rem 1.4rem; font-size: 0.84rem; color: var(--mid); line-height: 1.7; border-radius: 0 6px 6px 0; margin-bottom: 2.4rem; }
+  .section-note { background: var(--blush); border-left: 2px solid var(--lavender); padding: 1rem 1.4rem; font-size: 1.26rem; color: var(--mid); line-height: 1.7; border-radius: 0 6px 6px 0; margin-bottom: 2.4rem; }
   
   /* 修改：移除了 background 設定，讓所有說明文字的背景都統一為 var(--blush) (圖中的奶茶色) */
   .section-note.ai { border-left-color: var(--dusty-rose); }
 
   .sub-section { margin-bottom: 3.5rem; }
-  .sub-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--charcoal); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
-  .sub-num { font-size: 0.68rem; letter-spacing: 0.18em; color: var(--accent); font-family: 'Noto Sans TC', sans-serif; }
+  .sub-title { font-family: 'Noto Serif TC', serif; font-size: 1.5rem; color: var(--charcoal); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+  .sub-num { font-size: 1.02rem; letter-spacing: 0.18em; color: var(--accent); font-family: 'Noto Sans TC', sans-serif; }
 
   /* ── 圖片群組：同一群用 grid，每格 aspect-ratio 統一 ── */
   .img-group { display: grid; gap: 1rem; }
@@ -107,17 +110,17 @@
     transition: transform 0.35s; cursor: zoom-in;
   }
   .img-wrap img:hover { transform: scale(1.03); }
-  .img-label { text-align: center; font-size: 0.72rem; color: var(--light); margin-top: auto; padding-top: 0.6rem; letter-spacing: 0.06em; }
+  .img-label { text-align: center; font-size: 1.08rem; color: var(--light); margin-top: auto; padding-top: 0.6rem; letter-spacing: 0.06em; }
 
   /* BA 對比區塊 */
   .ba-block { background: #fff; border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; transition: box-shadow 0.3s; }
   .ba-block:hover { box-shadow: 0 8px 32px rgba(160,148,199,0.15); }
   .ba-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
-  .ba-label { font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent2); }
-  .ba-name { font-family: 'Noto Serif TC', serif; font-size: 1rem; }
+  .ba-label { font-size: 1.02rem; letter-spacing: 0.16em; color: var(--accent2); }
+  .ba-name { font-family: 'Noto Serif TC', serif; font-size: 1.5rem; }
   .ba-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
   .ba-images > div { display: flex; flex-direction: column; }
-  .ba-img-label { text-align: center; font-size: 0.68rem; color: var(--light); margin-top: auto; padding-top: 0.4rem; }
+  .ba-img-label { text-align: center; font-size: 1.02rem; color: var(--light); margin-top: auto; padding-top: 0.4rem; }
 
   /* controlnet 參考圖（小，放在detail-box內）*/
   .ctrl-row { display: flex; gap: 0.8rem; align-items: flex-start; margin-top: 0.6rem; }
@@ -126,21 +129,21 @@
 
   /* 條件1 & 2：確保 detail-box (腳色立繪與LoRA下方文字說明) 的背景為淡奶茶色 */
   .detail-box { background: var(--blush); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 0.8rem; }
-  .detail-row { display: flex; gap: 0.6rem; font-size: 0.78rem; color: var(--mid); padding: 0.3rem 0; border-bottom: 1px solid rgba(201,192,220,0.2); flex-wrap: wrap; }
+  .detail-row { display: flex; gap: 0.6rem; font-size: 1.17rem; color: var(--mid); padding: 0.3rem 0; border-bottom: 1px solid rgba(201,192,220,0.2); flex-wrap: wrap; }
   .detail-row:last-child { border-bottom: none; }
   .detail-key { color: var(--accent); font-weight: 500; min-width: 90px; flex-shrink: 0; }
 
   /* Chips */
   .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
-  .chip { background: #fff; border: 1px solid rgba(201,192,220,0.4); border-radius: 20px; padding: 0.35rem 0.9rem; font-size: 0.75rem; color: var(--mid); display: flex; align-items: center; gap: 0.4rem; }
+  .chip { background: #fff; border: 1px solid rgba(201,192,220,0.4); border-radius: 20px; padding: 0.35rem 0.9rem; font-size: 1.125rem; color: var(--mid); display: flex; align-items: center; gap: 0.4rem; }
   .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--lavender), var(--dusty-rose)); flex-shrink: 0; }
 
   /* Part3 workflow */
   /* 條件3：將 workflow-block (整個區塊說明) 背景改為淡奶茶色 */
   .workflow-block { background: var(--blush); border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; }
-  .workflow-title { font-family: 'Noto Serif TC', serif; font-size: 0.95rem; color: var(--charcoal); margin-bottom: 1rem; }
+  .workflow-title { font-family: 'Noto Serif TC', serif; font-size: 1.425rem; color: var(--charcoal); margin-bottom: 1rem; }
   /* 優化：外層變為奶茶色後，將內層 note 改為半透明白色以凸顯層次感 */
-  .workflow-note { background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.78rem; color: var(--mid); line-height: 1.7; margin-top: 0.5rem; }
+  .workflow-note { background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 0.7rem 1rem; font-size: 1.17rem; color: var(--mid); line-height: 1.7; margin-top: 0.5rem; }
   .workflow-note strong { color: var(--accent); font-weight: 500; }
 
   .hr { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
@@ -151,12 +154,12 @@
   .lightbox.open { display: flex; }
   .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; cursor: grab; user-select: none; transition: none; }
   .lightbox img.dragging { cursor: grabbing; }
-  .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: rgba(255,255,255,0.7); font-size: 2rem; cursor: pointer; line-height: 1; z-index: 10; }
+  .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: rgba(255,255,255,0.7); font-size: 3rem; cursor: pointer; line-height: 1; z-index: 10; }
   .lightbox-close:hover { color: #fff; }
-  .lightbox-hint { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; pointer-events: none; }
-  .lightbox-zoom { position: absolute; bottom: 1.5rem; right: 2rem; font-size: 0.72rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; pointer-events: none; }
+  .lightbox-hint { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 1.08rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; pointer-events: none; }
+  .lightbox-zoom { position: absolute; bottom: 1.5rem; right: 2rem; font-size: 1.08rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; pointer-events: none; }
 
-  footer { border-top: 1px solid rgba(201,192,220,0.25); padding: 3rem 2rem; text-align: center; font-size: 0.75rem; color: var(--light); letter-spacing: 0.1em; }
+  footer { border-top: 1px solid rgba(201,192,220,0.25); padding: 3rem 2rem; text-align: center; font-size: 1.125rem; color: var(--light); letter-spacing: 0.1em; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes scrollLine { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
@@ -288,7 +291,7 @@
   <!-- 1. AI生成前後比照圖 -->
   <div class="sub-section">
     <div class="sub-title reveal"><span class="sub-num">01</span> AI 生成前後比照圖</div>
-    <p style="font-size:0.82rem;color:var(--mid);margin-bottom:1.4rem;" class="reveal">展示的立繪左側為 ComfyUI 原生草圖，右側為細修後完成圖。</p>
+    <p style="font-size:1.23rem;color:var(--mid);margin-bottom:1.4rem;" class="reveal">展示的立繪左側為 ComfyUI 原生草圖，右側為細修後完成圖。</p>
 
     <!-- 立繪 A -->
     <div class="ba-block reveal">
@@ -387,7 +390,7 @@
     <div class="sub-title reveal"><span class="sub-num">03</span> LoRA 應用對比</div>
     <div class="section-note ai reveal" style="margin-bottom:1.4rem;">
       所展示的圖片均使用自行訓練的 LoRA 生成。素材為原神官網角色圖鑑去背製成，訓練軟體 Kohya。<br>
-      <span style="font-size:0.8rem;color:var(--light);">左側為純模型無 LoRA，右側為有添加 LoRA。相同 seed 與 prompt。</span>
+      <span style="font-size:1.2rem;color:var(--light);">左側為純模型無 LoRA，右側為有添加 LoRA。相同 seed 與 prompt。</span>
     </div>
 
     <div class="ba-block reveal">
