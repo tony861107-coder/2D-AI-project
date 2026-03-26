@@ -53,7 +53,9 @@
   .section-title { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.06em; }
   .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--blush), transparent); margin-left: 0.5rem; }
   .section-note { background: var(--blush); border-left: 2px solid var(--lavender); padding: 1rem 1.4rem; font-size: 0.84rem; color: var(--mid); line-height: 1.7; border-radius: 0 6px 6px 0; margin-bottom: 2.4rem; }
-  .section-note.ai { background: rgba(201,192,220,0.1); border-left-color: var(--dusty-rose); }
+  
+  /* 修改：移除了 background 設定，讓所有說明文字的背景都統一為 var(--blush) (圖中的奶茶色) */
+  .section-note.ai { border-left-color: var(--dusty-rose); }
 
   .sub-section { margin-bottom: 3.5rem; }
   .sub-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--charcoal); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
