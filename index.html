@@ -28,23 +28,29 @@
   .nav-links a { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--light); text-decoration: none; transition: color 0.25s; }
   .nav-links a:hover { color: var(--accent); }
 
-  .hero {
-    min-height: 100vh; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center;
-    padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+  /* ── Hero Cover Banner（類 Notion 封面效果）── */
+  .hero-cover {
+    width: 100%; height: 280px;
+    background: url('images/hero_cover.png') center 20% / cover no-repeat;
+    position: relative;
+    margin-top: 56px; /* nav 高度 */
   }
-  .hero::before {
+  .hero-cover::after {
     content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(201,192,220,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 40% at 25% 70%, rgba(212,168,176,0.18) 0%, transparent 65%);
-    pointer-events: none;
+    background: linear-gradient(to bottom, transparent 60%, var(--cream) 100%);
+  }
+
+  .hero {
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+    padding: 2.5rem 2rem 4rem; position: relative; overflow: hidden;
   }
   .hero-tag { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.4rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
   .hero-title { font-family: 'Noto Serif TC', serif; font-size: clamp(2rem, 6vw, 4rem); font-weight: 300; line-height: 1.3; letter-spacing: 0.04em; max-width: 640px; opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
   .hero-title em { font-style: normal; color: var(--accent); }
   .hero-sub { margin-top: 1.6rem; font-size: 0.88rem; color: var(--mid); max-width: 480px; opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
   .hero-divider { margin: 3rem auto 0; width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--lavender), transparent); opacity: 0; animation: fadeUp 0.9s 0.8s forwards; }
-  .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-size: 0.68rem; letter-spacing: 0.2em; color: var(--light); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; }
+  .scroll-hint { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--light); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-top: 2rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; }
   .scroll-hint::after { content: ''; width: 1px; height: 30px; background: linear-gradient(180deg, var(--lavender), transparent); animation: scrollLine 1.8s ease-in-out infinite; }
 
   .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
@@ -53,9 +59,7 @@
   .section-title { font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.06em; }
   .section-rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--blush), transparent); margin-left: 0.5rem; }
   .section-note { background: var(--blush); border-left: 2px solid var(--lavender); padding: 1rem 1.4rem; font-size: 0.84rem; color: var(--mid); line-height: 1.7; border-radius: 0 6px 6px 0; margin-bottom: 2.4rem; }
-  
-  /* 修改：移除了 background 設定，讓所有說明文字的背景都統一為 var(--blush) (圖中的奶茶色) */
-  .section-note.ai { border-left-color: var(--dusty-rose); }
+  .section-note.ai { background: rgba(201,192,220,0.1); border-left-color: var(--dusty-rose); }
 
   .sub-section { margin-bottom: 3.5rem; }
   .sub-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--charcoal); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
@@ -63,45 +67,24 @@
 
   /* ── 圖片群組：同一群用 grid，每格 aspect-ratio 統一 ── */
   .img-group { display: grid; gap: 1rem; }
-  .img-group > div { display: flex; flex-direction: column; }
   .img-group.cols-2 { grid-template-columns: repeat(2, 1fr); }
   .img-group.cols-3 { grid-template-columns: repeat(3, 1fr); }
   .img-group.cols-4 { grid-template-columns: repeat(4, 1fr); }
 
   /* 圖片容器：固定寬高比 */
-  /* 修改：加入 !important 強制覆蓋，確保所有縮圖背景皆為透明，與網頁底色融合 */
-  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: transparent !important; }
+  .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: var(--blush); }
   .img-wrap.ratio-portrait { aspect-ratio: 9/16; }  /* 立繪（直向）*/
   .img-wrap.ratio-square   { aspect-ratio: 1/1; }   /* icon、腳色設計 */
   .img-wrap.ratio-wide     { aspect-ratio: 16/9; }  /* 工作流截圖 */
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
-  
-  /* 確保 ratio-auto 也是透明的 */
-  .img-wrap.ratio-auto { 
-    aspect-ratio: 4/5; 
-    background: transparent !important; 
-  }
-  
-  /* 新增：將 ratio-square (Icon) 也加入，讓圖片完整顯示不裁切，並置中 */
-  .img-wrap.ratio-auto img,
-  .img-wrap.ratio-square img {
-    position: absolute; 
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* 關鍵：保證圖片完整顯示 */
-    object-position: center; /* 讓圖片在框內垂直/水平置中 */
-    padding: 0; 
-  }
-
   .img-wrap img {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; object-position: top;
     transition: transform 0.35s; cursor: zoom-in;
   }
   .img-wrap img:hover { transform: scale(1.03); }
-  .img-label { text-align: center; font-size: 0.72rem; color: var(--light); margin-top: auto; padding-top: 0.6rem; letter-spacing: 0.06em; }
+  .img-label { text-align: center; font-size: 0.72rem; color: var(--light); margin-top: 0.4rem; letter-spacing: 0.06em; }
 
   /* BA 對比區塊 */
   .ba-block { background: #fff; border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; transition: box-shadow 0.3s; }
@@ -110,16 +93,14 @@
   .ba-label { font-size: 0.68rem; letter-spacing: 0.16em; color: var(--accent2); }
   .ba-name { font-family: 'Noto Serif TC', serif; font-size: 1rem; }
   .ba-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
-  .ba-images > div { display: flex; flex-direction: column; }
-  .ba-img-label { text-align: center; font-size: 0.68rem; color: var(--light); margin-top: auto; padding-top: 0.4rem; }
+  .ba-img-label { text-align: center; font-size: 0.68rem; color: var(--light); margin-top: 0.3rem; }
 
   /* controlnet 參考圖（小，放在detail-box內）*/
   .ctrl-row { display: flex; gap: 0.8rem; align-items: flex-start; margin-top: 0.6rem; }
   .ctrl-img-wrap { width: 120px; flex-shrink: 0; border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; background: var(--blush); }
   .ctrl-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
 
-  /* 條件1 & 2：確保 detail-box (腳色立繪與LoRA下方文字說明) 的背景為淡奶茶色 */
-  .detail-box { background: var(--blush); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 0.8rem; }
+  .detail-box { background: rgba(201,192,220,0.08); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 0.8rem; }
   .detail-row { display: flex; gap: 0.6rem; font-size: 0.78rem; color: var(--mid); padding: 0.3rem 0; border-bottom: 1px solid rgba(201,192,220,0.2); flex-wrap: wrap; }
   .detail-row:last-child { border-bottom: none; }
   .detail-key { color: var(--accent); font-weight: 500; min-width: 90px; flex-shrink: 0; }
@@ -130,11 +111,9 @@
   .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--lavender), var(--dusty-rose)); flex-shrink: 0; }
 
   /* Part3 workflow */
-  /* 條件3：將 workflow-block (整個區塊說明) 背景改為淡奶茶色 */
-  .workflow-block { background: var(--blush); border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; }
+  .workflow-block { background: #fff; border: 1px solid rgba(201,192,220,0.3); border-radius: 16px; padding: 1.6rem; margin-bottom: 1.4rem; }
   .workflow-title { font-family: 'Noto Serif TC', serif; font-size: 0.95rem; color: var(--charcoal); margin-bottom: 1rem; }
-  /* 優化：外層變為奶茶色後，將內層 note 改為半透明白色以凸顯層次感 */
-  .workflow-note { background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.78rem; color: var(--mid); line-height: 1.7; margin-top: 0.5rem; }
+  .workflow-note { background: rgba(201,192,220,0.1); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.78rem; color: var(--mid); line-height: 1.7; margin-top: 0.5rem; }
   .workflow-note strong { color: var(--accent); font-weight: 500; }
 
   .hr { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
@@ -178,6 +157,9 @@
   </ul>
 </nav>
 
+<!-- Cover Banner（類 Notion 封面效果）-->
+<div class="hero-cover"></div>
+
 <!-- HERO -->
 <section class="hero">
   <p class="hero-tag">Portfolio · 作品集</p>
@@ -211,48 +193,44 @@
     </div>
   </div>
 
-  <!-- 2. 腳色設計：改為 2x2 陣列且使用 auto-height 保留完整圖片 -->
+  <!-- 2. 腳色設計：各子標題一區，圖片相同寬高比 -->
   <div class="sub-section reveal">
     <div class="sub-title"><span class="sub-num">02</span> 腳色設計</div>
-    <div class="img-group cols-2" style="row-gap: 2rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
       <div>
-        <div class="img-wrap ratio-auto"><img src="images/img03.png" alt="腳色設計1" loading="lazy"></div>
-        <p class="img-label">腳色設計 (A)</p>
+        <p class="img-label" style="margin-bottom:0.5rem;">腳色設計</p>
+        <div class="img-group cols-2">
+          <div><div class="img-wrap ratio-portrait"><img src="images/img03.png" alt="腳色設計1" loading="lazy"></div></div>
+          <div><div class="img-wrap ratio-portrait"><img src="images/img04.png" alt="腳色設計2" loading="lazy"></div></div>
+        </div>
       </div>
       <div>
-        <div class="img-wrap ratio-auto"><img src="images/img04.png" alt="腳色設計2" loading="lazy"></div>
-        <p class="img-label">腳色設計 (B)</p>
-      </div>
-      <div>
-        <div class="img-wrap ratio-auto"><img src="images/img05.png" alt="服裝設計1" loading="lazy"></div>
-        <p class="img-label">服裝設計 (A)</p>
-      </div>
-      <div>
-        <div class="img-wrap ratio-auto"><img src="images/img06.png" alt="服裝設計2" loading="lazy"></div>
-        <p class="img-label">服裝設計 (B)</p>
+        <p class="img-label" style="margin-bottom:0.5rem;">服裝設計</p>
+        <div class="img-group cols-2">
+          <div><div class="img-wrap ratio-portrait"><img src="images/img05.png" alt="服裝設計1" loading="lazy"></div></div>
+          <div><div class="img-wrap ratio-portrait"><img src="images/img06.png" alt="服裝設計2" loading="lazy"></div></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- 3. 角色立繪：比照腳色設計改為 2x2 陣列，並使用 auto-height 保留完整圖片 -->
+  <!-- 3. 角色立繪：各子標題一區，並排等寬 -->
   <div class="sub-section reveal">
     <div class="sub-title"><span class="sub-num">03</span> 角色立繪</div>
-    <div class="img-group cols-2" style="row-gap: 2rem;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
       <div>
-        <div class="img-wrap ratio-auto"><img src="images/img07.png" alt="專案立繪1" loading="lazy"></div>
-        <p class="img-label">專案立繪 (A)</p>
+        <p class="img-label" style="margin-bottom:0.5rem;">專案立繪</p>
+        <div class="img-group cols-2">
+          <div><div class="img-wrap ratio-portrait"><img src="images/img07.png" alt="專案立繪1" loading="lazy"></div></div>
+          <div><div class="img-wrap ratio-portrait"><img src="images/img08.png" alt="專案立繪2" loading="lazy"></div></div>
+        </div>
       </div>
       <div>
-        <div class="img-wrap ratio-auto"><img src="images/img08.png" alt="專案立繪2" loading="lazy"></div>
-        <p class="img-label">專案立繪 (B)</p>
-      </div>
-      <div>
-        <div class="img-wrap ratio-auto"><img src="images/img09.png" alt="個人作品1" loading="lazy"></div>
-        <p class="img-label">個人作品 (A)</p>
-      </div>
-      <div>
-        <div class="img-wrap ratio-auto"><img src="images/img10.png" alt="個人作品2" loading="lazy"></div>
-        <p class="img-label">個人作品 (B)</p>
+        <p class="img-label" style="margin-bottom:0.5rem;">個人作品</p>
+        <div class="img-group cols-2">
+          <div><div class="img-wrap ratio-portrait"><img src="images/img09.png" alt="個人作品1" loading="lazy"></div></div>
+          <div><div class="img-wrap ratio-portrait"><img src="images/img10.png" alt="個人作品2" loading="lazy"></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -471,7 +449,7 @@
     </div>
     <div class="workflow-block reveal">
       <div class="workflow-title">區塊說明</div>
-      <div class="workflow-note"><strong>Gemini：</strong>整合 **Gemini 大型語言模型（LLM）** 進行遮罩處理後圖像的解析，利用 **Gemini-2.5-flash 節點** 實現自動化的 Prompt 工程</div>
+      <div class="workflow-note"><strong>Gemini：</strong>透過 API Key 分析遮罩範圍內物件並自動撰寫提詞</div>
       <div class="workflow-note"><strong>ControlNet：</strong>局部重繪使用準確度最高的 canny</div>
       <div class="workflow-note"><strong>KSampler：</strong>降躁值常用 0.5、0.3、0.1、0.01；cfg 可調整色彩飽和度</div>
       <div class="workflow-note"><strong>Crop &amp; Stitch：</strong>遮罩裁剪 → 放大重繪 → 縮回拼貼</div>
@@ -595,7 +573,7 @@
     lbImg.classList.remove('dragging');
   });
 
-  // 雙擊重置 (補回這行)
+  // 雙擊重置
   lbImg.addEventListener('dblclick', resetTransform);
 
   // 觸控支援（手機）
