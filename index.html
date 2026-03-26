@@ -73,15 +73,18 @@
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
   
-  /* 新增：取消固定比例，用於完整顯示腳色設計與立繪，避免裁切 */
+  /* 修改：設定統一的縮圖外框比例，並讓圖片完整顯示於其中（不裁切） */
   .img-wrap.ratio-auto { 
-    aspect-ratio: auto; 
-    background: transparent; 
+    aspect-ratio: 4/5; /* 統一外框的長寬比，確保所有縮圖邊緣切齊 */
+    background: #ffffff; /* 圖片未填滿處的背景色（可依喜好改為 var(--blush)） */
   }
   .img-wrap.ratio-auto img {
-    position: relative; /* 取消絕對定位讓圖片撐開高度 */
-    height: auto;
-    object-fit: contain;
+    position: absolute; 
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 關鍵：保證圖片完整顯示、不裁切 */
+    padding: 0.8rem; /* 加上微小的內邊距，讓圖片像裱框一樣好看 */
   }
 
   .img-wrap img {
