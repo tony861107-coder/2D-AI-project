@@ -238,7 +238,6 @@
     <span class="chip"><span class="chip-dot"></span>ComfyUI</span>
     <span class="chip"><span class="chip-dot"></span>Gemini Nanobanana</span>
     <span class="chip"><span class="chip-dot"></span>CSP 後製</span>
-    <span class="chip"><span class="chip-dot"></span>Photoshop 去背</span>
     <span class="chip"><span class="chip-dot"></span>自製 LoRA</span>
     <span class="chip"><span class="chip-dot"></span>ControlNet</span>
   </div>
@@ -395,11 +394,15 @@
     <h2 class="section-title">ComfyUI 工作流技術說明</h2>
     <div class="section-rule"></div>
   </div>
-  <div class="section-note ai reveal">工作流介紹：文生圖與圖生圖、局部重繪、XY軸 LoRA 測試、LoRA 自動打標和歸檔</div>
+  <div class="section-note ai reveal">工作流介紹：基本生圖、局部重繪、XY軸 LoRA 測試、LoRA 自動打標和歸檔</div>
 
-  <!-- 1. 文生圖與圖生圖 -->
+  <!-- 1. 基本生圖 -->
   <div class="sub-section">
-    <div class="sub-title reveal"><span class="sub-num">01</span> 文生圖與圖生圖</div>
+    <div class="sub-title reveal"><span class="sub-num">01</span> 基本生圖</div>
+    <!-- 工作流總覽（本地附件，手動截圖後命名） -->
+    <div class="img-group cols-1 reveal" style="margin-bottom:1rem;">
+      <div><div class="img-wrap ratio-wide"><img src="images/wf_p1_overview.png" alt="基本生圖工作流總覽" loading="lazy"></div><p class="img-label">工作流總覽</p></div>
+    </div>
     <div class="img-group cols-3 reveal" style="margin-bottom:1rem;">
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p1_model.png" alt="Model區塊" loading="lazy"></div><p class="img-label">Model</p></div>
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p1_prompt.png" alt="Prompt區塊" loading="lazy"></div><p class="img-label">Prompt</p></div>
@@ -421,6 +424,9 @@
   <!-- 2. 局部重繪 -->
   <div class="sub-section">
     <div class="sub-title reveal"><span class="sub-num">02</span> 局部重繪</div>
+    <div class="img-group cols-1 reveal" style="margin-bottom:1rem;">
+      <div><div class="img-wrap ratio-wide"><img src="images/wf_p2_overview.png" alt="局部重繪工作流總覽" loading="lazy"></div><p class="img-label">工作流總覽</p></div>
+    </div>
     <div class="img-group cols-3 reveal" style="margin-bottom:1rem;">
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p2_model.png" alt="Model" loading="lazy"></div><p class="img-label">Model</p></div>
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p2_gemini.png" alt="Gemini" loading="lazy"></div><p class="img-label">Gemini</p></div>
@@ -441,20 +447,30 @@
   <!-- 3. XY軸LoRA測試 -->
   <div class="sub-section">
     <div class="sub-title reveal"><span class="sub-num">03</span> XY 軸 LoRA 測試</div>
+    <div class="img-group cols-1 reveal" style="margin-bottom:1rem;">
+      <div><div class="img-wrap ratio-wide"><img src="images/wf_p3_overview.png" alt="XY軸LoRA工作流總覽" loading="lazy"></div><p class="img-label">工作流總覽</p></div>
+    </div>
     <div class="img-group cols-2 reveal" style="margin-bottom:1rem;">
+      <div><div class="img-wrap ratio-wide"><img src="images/wf_p3_prompt.png" alt="Prompt" loading="lazy"></div><p class="img-label">Prompt</p></div>
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p3_lora_weight.png" alt="LoRA x Weight" loading="lazy"></div><p class="img-label">LoRA × Weight</p></div>
       <div><div class="img-wrap ratio-wide"><img src="images/wf_p3_lora_seed.png" alt="LoRA x Seed" loading="lazy"></div><p class="img-label">LoRA × Seed</p></div>
+      <div><div class="img-wrap ratio-wide"><img src="images/wf_p3_ksampler.png" alt="KSampler" loading="lazy"></div><p class="img-label">KSampler</p></div>
     </div>
     <div class="workflow-block reveal">
-      <div class="workflow-title">測試說明</div>
-      <div class="workflow-note"><strong>LoRA × Weight：</strong>儲存 8 個訓練版本，最終採用 5～7 階段；測試在 weight 0.5～1 的表現</div>
+      <div class="workflow-title">四大區域說明</div>
+      <div class="workflow-note"><strong>Prompt：</strong>功能與文生圖相同，合併提詞分離固定與變動的部分</div>
+      <div class="workflow-note"><strong>LoRA × Weight：</strong>儲存 8 個訓練版本，最終採用 5～7 階段；測試各階段在 weight 0.5～1 的表現</div>
       <div class="workflow-note"><strong>LoRA × Seed：</strong>測試不同訓練版本間的差異</div>
+      <div class="workflow-note"><strong>KSampler：</strong>參數預設即可，無需額外調整</div>
     </div>
   </div>
 
   <!-- 4. LoRA自動打標和歸檔 -->
   <div class="sub-section">
     <div class="sub-title reveal"><span class="sub-num">04</span> LoRA 自動打標和歸檔</div>
+    <div class="img-group cols-1 reveal" style="margin-bottom:1rem;">
+      <div><div class="img-wrap ratio-wide"><img src="images/wf_p4_overview.png" alt="LoRA自動打標工作流總覽" loading="lazy"></div><p class="img-label">工作流總覽</p></div>
+    </div>
     <div class="workflow-block reveal">
       <div class="workflow-title">自製 Gemini 節點</div>
       <div class="workflow-note">自動讀取指定資料夾內圖片，分析打標後按順序和檔名整齊排列至另一個資料夾。</div>
