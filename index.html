@@ -590,6 +590,9 @@
     lbImg.classList.remove('dragging');
   });
 
+  // 雙擊重置 (補回這行)
+  lbImg.addEventListener('dblclick', resetTransform);
+
   // 觸控支援（手機）
   let lastDist = 0;
   lb.addEventListener('touchstart', e => {
