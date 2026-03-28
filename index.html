@@ -29,16 +29,25 @@
   .nav-links a { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--light); text-decoration: none; transition: color 0.25s; }
   .nav-links a:hover { color: var(--accent); }
 
-  /* ── Hero Cover Banner（類 Notion 封面效果）── */
+  /* ── Hero Cover Banner（類 Notion 封面效果）影片版設定 ── */
   .hero-cover {
     width: 100%; height: 280px;
-    background: url('images/hero_cover.png') center 30% / cover no-repeat;
     position: relative;
     margin-top: 56px; /* nav 高度 */
+    overflow: hidden; /* 確保影片不會超出框框 */
+    background-color: var(--mist); /* 備用底色 */
+  }
+  .hero-cover video {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    object-position: center 30%; /* 保持您要的裁切位置 */
+    z-index: 0;
   }
   .hero-cover::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to bottom, transparent 60%, var(--cream) 100%);
+    z-index: 1; /* 確保漸層覆蓋在影片上方 */
   }
 
   .hero {
@@ -190,8 +199,13 @@
   </ul>
 </nav>
 
-<!-- Cover Banner（類 Notion 封面效果）這行補回來了！-->
-<div class="hero-cover"></div>
+<!-- Cover Banner（類 Notion 封面效果）修改為影片背景 -->
+<div class="hero-cover">
+  <!-- autoplay(自動播放) loop(循環) muted(靜音，背景影片必備) playsinline(手機版不全螢幕) -->
+  <video autoplay loop muted playsinline>
+    <source src="images/hero_cover.mp4" type="video/mp4">
+  </video>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -610,7 +624,7 @@
     lbImg.classList.remove('dragging');
   });
 
-  // 雙擊重置 (補回這行)
+  // 雙擊重置
   lbImg.addEventListener('dblclick', resetTransform);
 
   // 觸控支援（手機）
