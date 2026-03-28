@@ -91,7 +91,7 @@
   /* 修改：加入 !important 強制覆蓋，確保所有縮圖背景皆為透明，與網頁底色融合 */
   .img-wrap { position: relative; overflow: hidden; border-radius: 10px; background: transparent !important; }
   .img-wrap.ratio-portrait { aspect-ratio: 9/16; }  /* 立繪（直向）*/
-  .img-wrap.ratio-square   { aspect-ratio: 1/1; }   /* icon、腳色設計 */
+  .img-wrap.ratio-square   { aspect-ratio: 1/1; }   /* icon、角色設計 */
   .img-wrap.ratio-wide     { aspect-ratio: 16/9; }  /* 工作流截圖 */
   .img-wrap.ratio-ui       { aspect-ratio: 9/14; }  /* UI介面 */
   .img-wrap.ratio-ctrl     { aspect-ratio: 3/4; }   /* controlnet 參考圖 */
@@ -104,7 +104,9 @@
   
   /* 新增：將 ratio-square (Icon) 也加入，讓圖片完整顯示不裁切，並置中 */
   .img-wrap.ratio-auto img,
-  .img-wrap.ratio-square img {
+  .img-wrap.ratio-square img,
+  .img-wrap.ratio-auto video,
+  .img-wrap.ratio-square video {
     position: absolute; 
     inset: 0;
     width: 100%;
@@ -114,12 +116,14 @@
     padding: 0; 
   }
 
-  .img-wrap img {
+  .img-wrap img,
+  .img-wrap video {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; object-position: top;
     transition: transform 0.35s; cursor: zoom-in;
   }
-  .img-wrap img:hover { transform: scale(1.03); }
+  .img-wrap img:hover,
+  .img-wrap video:hover { transform: scale(1.03); }
   .img-label { text-align: center; font-size: 1.08rem; color: var(--light); margin-top: auto; padding-top: 0.6rem; letter-spacing: 0.06em; }
 
   /* BA 對比區塊 */
@@ -137,7 +141,7 @@
   .ctrl-img-wrap { width: 120px; flex-shrink: 0; border-radius: 8px; overflow: hidden; aspect-ratio: 3/4; background: var(--blush); }
   .ctrl-img-wrap img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
 
-  /* 條件1 & 2：確保 detail-box (腳色立繪與LoRA下方文字說明) 的背景為淡奶茶色 */
+  /* 條件1 & 2：確保 detail-box (角色立繪與LoRA下方文字說明) 的背景為淡奶茶色 */
   .detail-box { background: var(--blush); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 0.8rem; }
   .detail-row { display: flex; gap: 0.6rem; font-size: 1.17rem; color: var(--mid); padding: 0.3rem 0; border-bottom: 1px solid rgba(201,192,220,0.2); flex-wrap: wrap; }
   .detail-row:last-child { border-bottom: none; }
@@ -163,8 +167,8 @@
   /* 修改：稍微調低不透明度(0.93 -> 0.75)，並加上 backdrop-filter: blur(12px) 產生背景模糊效果 */
   .lightbox { display: none; position: fixed; inset: 0; background: rgba(45,43,53,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 999; align-items: center; justify-content: center; overflow: hidden; }
   .lightbox.open { display: flex; }
-  .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; cursor: grab; user-select: none; transition: none; }
-  .lightbox img.dragging { cursor: grabbing; }
+  .lightbox img, .lightbox video { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; cursor: grab; user-select: none; transition: none; }
+  .lightbox img.dragging, .lightbox video.dragging { cursor: grabbing; }
   .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; color: rgba(255,255,255,0.7); font-size: 3rem; cursor: pointer; line-height: 1; z-index: 10; }
   .lightbox-close:hover { color: #fff; }
   .lightbox-hint { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 1.08rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; pointer-events: none; }
@@ -240,17 +244,17 @@
     </div>
   </div>
 
-  <!-- 2. 腳色設計：改為 2x2 陣列且使用 auto-height 保留完整圖片 -->
+  <!-- 2. 角色設計：改為 2x2 陣列且使用 auto-height 保留完整圖片 -->
   <div class="sub-section reveal">
-    <div class="sub-title"><span class="sub-num">02</span> 腳色設計</div>
+    <div class="sub-title"><span class="sub-num">02</span> 角色設計</div>
     <div class="img-group cols-2" style="row-gap: 2rem;">
       <div>
-        <div class="img-wrap ratio-auto"><img src="images/img03.png" alt="腳色設計1" loading="lazy"></div>
-        <p class="img-label">腳色設計 (A)</p>
+        <div class="img-wrap ratio-auto"><img src="images/img03.png" alt="角色設計1" loading="lazy"></div>
+        <p class="img-label">角色設計 (A)</p>
       </div>
       <div>
-        <div class="img-wrap ratio-auto"><img src="images/img04.png" alt="腳色設計2" loading="lazy"></div>
-        <p class="img-label">腳色設計 (B)</p>
+        <div class="img-wrap ratio-auto"><img src="images/img04.png" alt="角色設計2" loading="lazy"></div>
+        <p class="img-label">角色設計 (B)</p>
       </div>
       <div>
         <div class="img-wrap ratio-auto"><img src="images/img05.png" alt="服裝設計1" loading="lazy"></div>
@@ -263,7 +267,7 @@
     </div>
   </div>
 
-  <!-- 3. 角色立繪：比照腳色設計改為 2x2 陣列，並使用 auto-height 保留完整圖片 -->
+  <!-- 3. 角色立繪：比照角色設計改為 2x2 陣列，並使用 auto-height 保留完整圖片 -->
   <div class="sub-section reveal">
     <div class="sub-title"><span class="sub-num">03</span> 角色立繪</div>
     <div class="img-group cols-2" style="row-gap: 2rem;">
@@ -282,11 +286,6 @@
       <div>
         <div class="img-wrap ratio-auto"><img src="images/img10.png" alt="個人作品2" loading="lazy"></div>
         <p class="img-label">個人作品 (B)</p>
-      </div>
-      <!-- 新增：橫跨兩欄的橫幅個人作品 C -->
-      <div style="grid-column: 1 / -1;">
-        <div class="img-wrap ratio-auto" style="aspect-ratio: 16/9;"><img src="images/img10_c.png" alt="個人作品3" loading="lazy"></div>
-        <p class="img-label">個人作品 (C)</p>
       </div>
     </div>
   </div>
@@ -317,7 +316,7 @@
 
     <!-- 立繪 A -->
     <div class="ba-block reveal">
-      <div class="ba-header"><span class="ba-label">Before / After</span><span class="ba-name">腳色立繪 A</span></div>
+      <div class="ba-header"><span class="ba-label">Before / After</span><span class="ba-name">角色立繪 A</span></div>
       <div class="ba-images">
         <div>
           <div class="img-wrap ratio-portrait"><img src="images/img13.png" alt="立繪A草圖" loading="lazy"></div>
@@ -341,7 +340,7 @@
 
     <!-- 立繪 B -->
     <div class="ba-block reveal">
-      <div class="ba-header"><span class="ba-label">Before / After</span><span class="ba-name">腳色立繪 B</span></div>
+      <div class="ba-header"><span class="ba-label">Before / After</span><span class="ba-name">角色立繪 B</span></div>
       <div class="ba-images">
         <div>
           <div class="img-wrap ratio-portrait"><img src="images/img11.png" alt="立繪B草圖" loading="lazy"></div>
@@ -365,7 +364,7 @@
 
     <!-- 立繪 C -->
     <div class="ba-block reveal">
-      <div class="ba-header"><span class="ba-label">Before / After</span><span class="ba-name">腳色立繪 C</span></div>
+      <div class="ba-header"><span class="ba-label">Before / After</span><span class="ba-name">角色立繪 C</span></div>
       <div class="ba-images">
         <div>
           <div class="img-wrap ratio-portrait"><img src="images/img15.png" alt="立繪C草圖" loading="lazy"></div>
@@ -388,9 +387,9 @@
     </div>
   </div>
 
-  <!-- 2. 腳色搭配UI介面 -->
+  <!-- 2. 角色搭配UI介面 -->
   <div class="sub-section">
-    <div class="sub-title reveal"><span class="sub-num">02</span> 腳色搭配 UI 介面</div>
+    <div class="sub-title reveal"><span class="sub-num">02</span> 角色搭配 UI 介面</div>
     <div class="img-group cols-3 reveal">
       <div>
         <div class="img-wrap ratio-ui"><img src="images/img17.png" alt="UI A" loading="lazy"></div>
@@ -407,9 +406,40 @@
     </div>
   </div>
 
-  <!-- 3. LoRA 應用對比 -->
+  <!-- 3. 角色待機動畫 (新增區塊) -->
   <div class="sub-section">
-    <div class="sub-title reveal"><span class="sub-num">03</span> LoRA 應用對比</div>
+    <div class="sub-title reveal"><span class="sub-num">03</span> 角色待機動畫</div>
+    <div class="img-group cols-3 reveal">
+      <div>
+        <div class="img-wrap ratio-portrait">
+          <video autoplay loop muted playsinline>
+            <source src="images/idle_a.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="img-label">待機A</p>
+      </div>
+      <div>
+        <div class="img-wrap ratio-portrait">
+          <video autoplay loop muted playsinline>
+            <source src="images/idle_b.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="img-label">待機B</p>
+      </div>
+      <div>
+        <div class="img-wrap ratio-portrait">
+          <video autoplay loop muted playsinline>
+            <source src="images/idle_c.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="img-label">待機C</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. LoRA 應用對比 -->
+  <div class="sub-section">
+    <div class="sub-title reveal"><span class="sub-num">04</span> LoRA 應用對比</div>
     <div class="section-note ai reveal" style="margin-bottom:1.4rem;">
       所展示的圖片均使用自行訓練的 LoRA 生成。素材為原神官網角色圖鑑去背製成，訓練軟體 Kohya。<br>
       <span style="font-size:1.2rem;color:var(--light);">左側為純模型無 LoRA，右側為有添加 LoRA。相同 seed 與 prompt。</span>
@@ -549,10 +579,11 @@
 
 <footer><p>2D 美術與 AI 整合應用作品集 &nbsp;·&nbsp; 2D Art × AI</p></footer>
 
-<!-- Lightbox -->
+<!-- Lightbox 修改：新增影片容器，以便支援點擊放大影片功能 -->
 <div class="lightbox" id="lightbox">
   <span class="lightbox-close" id="lbClose">✕</span>
   <img id="lbImg" src="" alt="">
+  <video id="lbVideo" autoplay loop muted playsinline style="display:none;"></video>
   <span class="lightbox-hint">滾輪縮放 · 拖曳移動 · 雙擊重置</span>
   <span class="lightbox-zoom" id="lbZoom">100%</span>
 </div>
@@ -564,42 +595,79 @@
     }, { threshold: 0.08 }).observe(el);
   });
 
-  // Lightbox 縮放與拖曳
+  // Lightbox 縮放與拖曳 (更新以支援圖片和影片)
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
+  const lbVideo = document.getElementById('lbVideo');
   const lbZoom = document.getElementById('lbZoom');
 
+  let activeMedia = lbImg; // 記錄當前顯示的是圖片還是影片
   let scale = 1, tx = 0, ty = 0;
   let dragging = false, startX = 0, startY = 0, baseTx = 0, baseTy = 0;
 
   function applyTransform() {
-    lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    activeMedia.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
     lbZoom.textContent = Math.round(scale * 100) + '%';
   }
 
   function resetTransform() {
     scale = 1; tx = 0; ty = 0;
-    lbImg.style.transition = 'transform 0.25s ease';
+    activeMedia.style.transition = 'transform 0.25s ease';
     applyTransform();
-    setTimeout(() => lbImg.style.transition = 'none', 260);
+    setTimeout(() => activeMedia.style.transition = 'none', 260);
   }
 
-  function openLightbox(src) {
-    lbImg.src = src;
+  function openLightbox(src, isVideo = false) {
+    if (isVideo) {
+      lbImg.style.display = 'none';
+      lbVideo.style.display = 'block';
+      lbVideo.src = src;
+      lbVideo.play();
+      activeMedia = lbVideo;
+    } else {
+      lbVideo.style.display = 'none';
+      lbVideo.pause();
+      lbImg.style.display = 'block';
+      lbImg.src = src;
+      activeMedia = lbImg;
+    }
     scale = 1; tx = 0; ty = 0;
-    lbImg.style.transform = '';
+    activeMedia.style.transform = '';
     lb.classList.add('open');
   }
 
   // 點擊圖片開啟
   document.querySelectorAll('.img-wrap img, .ctrl-img-wrap img').forEach(img => {
-    img.addEventListener('click', () => openLightbox(img.src));
+    img.addEventListener('click', () => openLightbox(img.src, false));
+  });
+
+  // 點擊影片開啟
+  document.querySelectorAll('.img-wrap video').forEach(video => {
+    video.addEventListener('click', (e) => {
+      e.preventDefault();
+      // 從內部 source 標籤抓取，或是直接從 video 本身抓取來源
+      const src = video.querySelector('source') ? video.querySelector('source').src : video.src;
+      openLightbox(src, true);
+    });
   });
 
   // 關閉
-  document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
-  lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+  document.getElementById('lbClose').addEventListener('click', () => {
+    lb.classList.remove('open');
+    if (activeMedia === lbVideo) lbVideo.pause();
+  });
+  lb.addEventListener('click', e => { 
+    if (e.target === lb) { 
+      lb.classList.remove('open'); 
+      if (activeMedia === lbVideo) lbVideo.pause();
+    } 
+  });
+  document.addEventListener('keydown', e => { 
+    if (e.key === 'Escape') { 
+      lb.classList.remove('open'); 
+      if (activeMedia === lbVideo) lbVideo.pause();
+    } 
+  });
 
   // 滾輪縮放
   lb.addEventListener('wheel', e => {
@@ -609,28 +677,30 @@
     applyTransform();
   }, { passive: false });
 
-  // 拖曳移動
-  lbImg.addEventListener('mousedown', e => {
-    if (scale <= 1) return;
-    dragging = true;
-    startX = e.clientX; startY = e.clientY;
-    baseTx = tx; baseTy = ty;
-    lbImg.classList.add('dragging');
-    e.preventDefault();
+  // 拖曳移動與雙擊重置綁定至圖片及影片
+  [lbImg, lbVideo].forEach(media => {
+    media.addEventListener('mousedown', e => {
+      if (scale <= 1) return;
+      dragging = true;
+      startX = e.clientX; startY = e.clientY;
+      baseTx = tx; baseTy = ty;
+      media.classList.add('dragging');
+      e.preventDefault();
+    });
+    media.addEventListener('dblclick', resetTransform);
   });
+
   document.addEventListener('mousemove', e => {
     if (!dragging) return;
     tx = baseTx + (e.clientX - startX);
     ty = baseTy + (e.clientY - startY);
     applyTransform();
   });
+  
   document.addEventListener('mouseup', () => {
     dragging = false;
-    lbImg.classList.remove('dragging');
+    activeMedia.classList.remove('dragging');
   });
-
-  // 雙擊重置
-  lbImg.addEventListener('dblclick', resetTransform);
 
   // 觸控支援（手機）
   let lastDist = 0;
